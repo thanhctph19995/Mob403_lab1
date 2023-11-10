@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,44 +16,46 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.ViewHolder> {
-    private List<PhotoModel> photos;
-    private Context context;
+    List<Photo> photoList;
 
-    public PhotoAdapter(List<PhotoModel> photos, Context context) {
-        this.photos = photos;
-        this.context = context;
+    public PhotoAdapter(List<Photo> photoList) {
+        this.photoList = photoList;
     }
-
+    public void setPhotoList(List<Photo> photoList) {
+        this.photoList = photoList;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_photo, parent, false);
-        return new ViewHolder(view);
+        View v= LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+        return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PhotoModel photo = photos.get(position);
-        holder.photoTextView.setText(photo.getTitle());
-        holder.idTextView.setText(String.valueOf(photo.getId()));
-        Picasso.get().load(photo.getUrl()).into(holder.photoImageView);
+        Photo Photo=photoList.get(position);
+        holder.titleTextView.setText(Photo.getTitle());
+        holder.idTextView.setText(String.valueOf(Photo.getId()));
+        Picasso.get().load(Photo.getThumbnailUrl()).into(holder.thumbnailImageView);
+        Log.e("e", ""+photoList.size());
     }
 
     @Override
     public int getItemCount() {
-        return photos.size();
+        return photoList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView photoImageView;
-        TextView photoTextView;
+    public static class ViewHolder extends RecyclerView.ViewHolder{
+        public TextView idTextView;
+        public TextView titleTextView;
+        public ImageView thumbnailImageView;
 
-        TextView idTextView;
-        ViewHolder(@NonNull View itemView) {
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            photoImageView = itemView.findViewById(R.id.photoImageView);
-            photoTextView = itemView.findViewById(R.id.photoTextView);
-            idTextView = itemView.findViewById(R.id.idTextView);
+            titleTextView= itemView.findViewById(R.id.tvtitle);
+            thumbnailImageView=itemView.findViewById(R.id.imageV5);
+            idTextView=itemView.findViewById(R.id.tvid);
         }
     }
 }

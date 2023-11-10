@@ -6,6 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface PhotoApi {
-    @GET("photos") // Đặt URL API thực tế ở đây
-    Call<List<PhotoModel>> getPhotos();
+    @GET("/photos")
+    Call<List<Photo>> getPhotos();
 }
