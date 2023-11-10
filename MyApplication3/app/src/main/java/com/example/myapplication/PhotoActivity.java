@@ -70,10 +70,8 @@ public class PhotoActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            // Xử lý dữ liệu đã lấy được ở đây
 
             if (result != null) {
-                // Ví dụ: Chuyển đổi dữ liệu JSON thành đối tượng Photo
                 List<Photo> photoList = parseJsonToPhotoList(result);
 
             }
@@ -89,7 +87,6 @@ public class PhotoActivity extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                // Đọc các thuộc tính từ jsonObject và tạo đối tượng Photo
                 int albumId = jsonObject.getInt("albumId");
                 int id = jsonObject.getInt("id");
                 String url = jsonObject.getString("url");
